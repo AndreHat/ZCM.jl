@@ -10,3 +10,7 @@ This is an unregistered package and can be added with:
 ```julia
 (1.0) pkg> add https://github.com/AndreHat/ZCM.jl.git
 ```
+### Examples
+
+Most examples should work as is.
+little_endian.jl, logfiles.jl, packaged_type.jl and prefixed_types.jl does not work yet.

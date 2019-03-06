@@ -1,31 +1,21 @@
 using ZCM
-
 include("../example/_example_t.jl")
 using Main._example_t
 
 numReceived = 0
 function handler(rbuf, channel::String, msg::example_t)
-    println("Received message on channel: ", channel)
+    println("Received message on channel: ", channel, " at time ", msg.timestamp)
     global numReceived
-    global gmsgdata
-    gmsgdata = msg
     @assert (numReceived == msg.timestamp) "Received message with incorrect timestamp"
     numReceived = numReceived + 1
-
 end
 
 # a handler that receives the raw message bytes
 function untyped_handler(rbuf, channel::String, msgdata::Vector{UInt8})
     println("Recieved raw message data on channel: ", channel)
-    global gumsgdata
-    gumsgdata = msgdata
-
-    u2msgdata = decode(example_t, msgdata)
-    global gu2msgdata
-    gu2msgdata = u2msgdata
+    decode(example_t, msgdata)
 end
 
-#zcm = Zcm("inproc")
 zcm = Zcm("udpm://239.255.76.67:7667?ttl=1")
 if (!good(zcm))
     error("Unable to initialize zcm");
@@ -36,7 +26,9 @@ sub2 = subscribe(zcm, "EXAMPLE", untyped_handler)
 
 msg = example_t()
 
-ZCM.start(zcm)
+set_queue_size(zcm, 10)
+
+start(zcm)
 
 msg.timestamp = 0;
 publish(zcm, "EXAMPLE", msg)
@@ -47,6 +39,8 @@ publish(zcm, "EXAMPLE", msg)
 
 sleep(0.5)
 
+pause(zcm)
+
 msg.timestamp = 3;
 publish(zcm, "EXAMPLE", msg)
 msg.timestamp = 4;
@@ -55,11 +49,32 @@ msg.timestamp = 5;
 publish(zcm, "EXAMPLE", msg)
 
 sleep(0.5)
+
+@assert (numReceived == 3) "Received a message while paused : $numReceived"
+
+flush(zcm) # flushes messages out on publish
+
+sleep(0.5)
+
+flush(zcm) # flushes message in on receive
+
+@assert (numReceived == 6) "Did not receive all messages after flush : $numReceived"
+
+resume(zcm)
+
+msg.timestamp = 6;
+publish(zcm, "EXAMPLE", msg)
+msg.timestamp = 7;
+publish(zcm, "EXAMPLE", msg)
+msg.timestamp = 8;
+publish(zcm, "EXAMPLE", msg)
+
+sleep(0.5)
 stop(zcm)
 
 unsubscribe(zcm, sub)
 unsubscribe(zcm, sub2)
 
-@assert (numReceived == 6) "Didn't receive proper number of messages"
+@assert (numReceived == 9) "Did not receive all messages after resume : $numReceived"
 
 println("Success!")

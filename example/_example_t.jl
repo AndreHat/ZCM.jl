@@ -183,6 +183,8 @@ function ZCM._decode_one(::Type{example_t}, buf)
 end
 
 function ZCM.decode(::Type{example_t}, data::Vector{UInt8})
+    # @show data
+    # dump(data)
     buf = IOBuffer(data)
     if ntoh(reinterpret(Int64, read(buf, 8))[1]) != ZCM.getHash(example_t)
         throw("Decode error")
