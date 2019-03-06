@@ -2,6 +2,7 @@
 #TODO: This example does not work yet
 #TODO:
 
+push!(LOAD_PATH,pwd()*"/example")
 using ZCM
 
 import juliazcmtypes

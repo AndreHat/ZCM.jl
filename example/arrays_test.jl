@@ -1,9 +1,8 @@
+push!(LOAD_PATH,pwd()*"/example")
 using ZCM
 
-include("../example/_example_t.jl")
-using Main._example_t
-include("../example/_arrays_t.jl")
-using Main._arrays_t
+using _example_t
+using _arrays_t
 
 numReceived = 0
 function handler(rbuf, channel::String, msg::arrays_t)

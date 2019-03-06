@@ -1,8 +1,8 @@
+push!(LOAD_PATH,pwd()*"/example")
 using ZCM
-include("../example/_example_t.jl")
-using Main._example_t
-include("../example/_example2_t.jl")
-using Main._example2_t
+
+using _example_t
+using _example2_t
 
 received_example_t = false
 function handler1(rbuf, channel::String, msg::example_t)

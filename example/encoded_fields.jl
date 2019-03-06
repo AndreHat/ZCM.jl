@@ -1,8 +1,7 @@
+push!(LOAD_PATH,pwd()*"/example")
 using ZCM
-include("../example/_example_t.jl")
-using Main._example_t
-include("../example/_encoded_t.jl")
-using Main._encoded_t
+using _example_t
+using _encoded_t
 
 # declare a new msg and populate it
 msg = example_t()

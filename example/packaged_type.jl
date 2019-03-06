@@ -2,11 +2,11 @@
 #TODO: This example does not work yet
 #TODO:
 
+push!(LOAD_PATH,pwd()*"/example")
 using ZCM
 
-include("../example/_example_t.jl")
-using Main._example_t
-@show push!(LOAD_PATH,pwd()*"/example/test_package")
+using _example_t
+push!(LOAD_PATH,pwd()*"/example/test_package")
 import test_package: packaged_t
 
 function prepMsg!(m::packaged_t, tf::Bool)

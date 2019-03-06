@@ -2,10 +2,10 @@
 #TODO: This example does not work yet
 #TODO:
 
+push!(LOAD_PATH,pwd()*"/example")
 using ZCM
 
-include("../example/_example_t.jl")
-using Main._example_t
+using _example_t
 
 msg = example_t()
 

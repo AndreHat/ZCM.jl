@@ -2,13 +2,11 @@
 #TODO: This example still doesn't work, something wrong with the encoding/decoding steps. Wrong data arrives in the callback
 #TODO:
 
-
+push!(LOAD_PATH,pwd()*"/example")
 using ZCM
 
-include("../example/_example_t.jl")
-using Main._example_t
-include("../example/_little_endian_t.jl")
-using Main._little_endian_t
+using _example_t
+using _little_endian_t
 
 numReceived = 0
 function handler(rbuf, channel::String, msg::little_endian_t)

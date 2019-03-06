@@ -12,13 +12,13 @@
 module _example_t
 __basemodule = parentmodule(_example_t)
 
-import Main.ZCM
+import ZCM
 
 function __init__()
 end
 
 export example_t
-mutable struct  example_t <: ZCM.AbstractZcmType
+mutable struct example_t <: ZCM.AbstractZcmType
 
     # **********************
     # Members
@@ -183,8 +183,6 @@ function ZCM._decode_one(::Type{example_t}, buf)
 end
 
 function ZCM.decode(::Type{example_t}, data::Vector{UInt8})
-    # @show data
-    # dump(data)
     buf = IOBuffer(data)
     if ntoh(reinterpret(Int64, read(buf, 8))[1]) != ZCM.getHash(example_t)
         throw("Decode error")
