@@ -2,7 +2,7 @@
 #TODO: This example does not work yet
 #TODO:
 
-push!(LOAD_PATH,pwd()*"/example")
+push!(LOAD_PATH,dirname(Base.source_path()))
 using ZCM
 
 using _example_t

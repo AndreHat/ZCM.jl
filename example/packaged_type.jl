@@ -2,10 +2,12 @@
 #TODO: This example does not work yet
 #TODO:
 
-push!(LOAD_PATH,pwd()*"/example")
+push!(LOAD_PATH,dirname(Base.source_path()))
+push!(LOAD_PATH,dirname(Base.source_path())*"/test_package")
 using ZCM
 
 using _example_t
+push!(LOAD_PATH,dirname(Base.source_path()))
 push!(LOAD_PATH,pwd()*"/example/test_package")
 import test_package: packaged_t
 

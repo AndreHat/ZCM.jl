@@ -1,4 +1,4 @@
-push!(LOAD_PATH,pwd()*"/example")
+push!(LOAD_PATH,dirname(Base.source_path()))
 using ZCM
 
 # include("../example/_example_t.jl")
