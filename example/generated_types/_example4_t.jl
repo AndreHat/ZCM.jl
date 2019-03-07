@@ -7,15 +7,16 @@
 # This file intended to be imported by user
 # after setting up their LOAD_PATH,
 # but you must import the type directly into the user's module:
-#     unshift!(LOAD_PATH, "path/to/dir/containing/this/file")
+#     pushfirst!(LOAD_PATH, "path/to/dir/containing/this/file")
 #     import _example4_t : example4_t
 module _example4_t
 __basemodule = parentmodule(_example4_t)
+__basemodule == _example4_t && (__basemodule = Main)
 
 import ZCM
 
 function __init__()
-    eval(__basemodule, parse("import test_package"))
+    Base.eval(__basemodule, Meta.parse("import test_package"))
 end
 
 export example4_t

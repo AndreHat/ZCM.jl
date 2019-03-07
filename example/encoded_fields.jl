@@ -1,4 +1,4 @@
-push!(LOAD_PATH,dirname(Base.source_path()))
+push!(LOAD_PATH,dirname(Base.source_path())*"/generated_types")
 using ZCM
 using _example_t
 using _encoded_t

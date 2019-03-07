@@ -1,8 +1,15 @@
-push!(LOAD_PATH,dirname(Base.source_path()))
+push!(LOAD_PATH,dirname(Base.source_path())*"/generated_types")
 using ZCM
 
 using _example_t
 using _arrays_t
+
+# import test_package: _example_t
+# import test_package: _arrays_t
+
+# import _example_t
+# import _example_t : example_t
+# import _arrays_t : arrays_t
 
 numReceived = 0
 function handler(rbuf, channel::String, msg::arrays_t)

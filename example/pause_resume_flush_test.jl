@@ -1,7 +1,7 @@
-push!(LOAD_PATH,dirname(Base.source_path()))
+push!(LOAD_PATH,dirname(Base.source_path())*"/generated_types")
 using ZCM
 
-using Main._example_t
+using _example_t
 
 numReceived = 0
 function handler(rbuf, channel::String, msg::example_t)

@@ -2,7 +2,7 @@
 #TODO: This example still doesn't work, something wrong with the encoding/decoding steps. Wrong data arrives in the callback
 #TODO:
 
-push!(LOAD_PATH,dirname(Base.source_path()))
+push!(LOAD_PATH,dirname(Base.source_path())*"/generated_types")
 using ZCM
 
 using _example_t
@@ -22,11 +22,13 @@ function untyped_handler(rbuf, channel::String, msgdata::Vector{UInt8})
     buf = IOBuffer(msgdata)
     global gbuf = buf
     global gmsgdata = msgdata
+    global gdecoded
 
     # @assert (ltoh(reinterpret(Int64, read(buf, 8))[1]) == ZCM.getHash(little_endian_t))
-            # "Incorrect encoding for little endian"
+            #"Incorrect encoding for little endian"
     # @show (ltoh(reinterpret(Int64, read(buf, 8))[1]) == ZCM.getHash(little_endian_t))
-    # decode(little_endian_t, msgdata)
+    decoded = decode(little_endian_t, msgdata)
+    gdecoded = decoded
 end
 
 zcm = Zcm("udpm://239.255.76.67:7667?ttl=1")

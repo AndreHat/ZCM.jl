@@ -5,15 +5,13 @@
 #
 
 begin
-# @assert (endswith(string(current_module()), "test_package")) "Only import this file through its module"
 @assert (endswith(string(@__MODULE__), "test_package")) "Only import this file through its module"
-
 
 import ZCM
 
 
 export packaged_t
-mutable struct  packaged_t <: ZCM.AbstractZcmType
+mutable struct packaged_t <: ZCM.AbstractZcmType
 
     # **********************
     # Members

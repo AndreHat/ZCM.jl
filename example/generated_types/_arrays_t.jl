@@ -7,28 +7,25 @@
 # This file intended to be imported by user
 # after setting up their LOAD_PATH,
 # but you must import the type directly into the user's module:
-#     unshift!(LOAD_PATH, "path/to/dir/containing/this/file")
+#     pushfirst!(LOAD_PATH, "path/to/dir/containing/this/file")
 #     import _arrays_t : arrays_t
 module _arrays_t
 __basemodule = parentmodule(_arrays_t)
+__basemodule == _arrays_t && (__basemodule = Main)
 
 import ZCM
-# include("../example/_example_t.jl")
-# using Main._example_t
+
 function __init__()
-    # Core.eval(__basemodule, Meta.parse("import Main._example_t: example_t"))
-    Core.eval(Main, Meta.parse("import Main._example_t: example_t"))
+    Base.eval(__basemodule, Meta.parse("import _example_t: example_t"))
 end
 
-
 export arrays_t
-@show "0"
 mutable struct arrays_t <: ZCM.AbstractZcmType
 
     # **********************
     # Members
     # **********************
-    @show "1"
+
     m                             ::Int8
     n                             ::Int8
     prim_onedim_static            ::Array{Bool,1}
@@ -44,7 +41,7 @@ mutable struct arrays_t <: ZCM.AbstractZcmType
     nonprim_twodim_dynamic_static ::Array{ZCM.AbstractZcmType,2} # example_t
     nonprim_twodim_dynamic_dynamic::Array{ZCM.AbstractZcmType,2} # example_t
 
-    @show "2"
+
     function arrays_t()
 
         self = new()
@@ -52,7 +49,7 @@ mutable struct arrays_t <: ZCM.AbstractZcmType
         # **********************
         # Members
         # **********************
-        @show "3"
+
         self.m = 0
         self.n = 0
         self.prim_onedim_static = [ false for dim0=1:3 ]
@@ -61,15 +58,13 @@ mutable struct arrays_t <: ZCM.AbstractZcmType
         self.prim_twodim_static_dynamic = [ 0 for dim0=1:3, dim1=1:self.n ]
         self.prim_twodim_dynamic_static = [ 0.0 for dim0=1:self.n, dim1=1:3 ]
         self.prim_twodim_dynamic_dynamic = [ 0.0 for dim0=1:self.m, dim1=1:self.n ]
-        @show "4"
         self.nonprim_onedim_static = [ __basemodule._example_t.example_t() for dim0=1:3 ]
-        @show "5"
         self.nonprim_onedim_dynamic = [ __basemodule._example_t.example_t() for dim0=1:self.n ]
         self.nonprim_twodim_static_static = [ __basemodule._example_t.example_t() for dim0=1:3, dim1=1:3 ]
         self.nonprim_twodim_static_dynamic = [ __basemodule._example_t.example_t() for dim0=1:3, dim1=1:self.n ]
         self.nonprim_twodim_dynamic_static = [ __basemodule._example_t.example_t() for dim0=1:self.n, dim1=1:3 ]
         self.nonprim_twodim_dynamic_dynamic = [ __basemodule._example_t.example_t() for dim0=1:self.m, dim1=1:self.n ]
-        @show "6"
+
         return self
     end
 

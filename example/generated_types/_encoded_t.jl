@@ -7,10 +7,11 @@
 # This file intended to be imported by user
 # after setting up their LOAD_PATH,
 # but you must import the type directly into the user's module:
-#     unshift!(LOAD_PATH, "path/to/dir/containing/this/file")
+#     pushfirst!(LOAD_PATH, "path/to/dir/containing/this/file")
 #     import _encoded_t : encoded_t
 module _encoded_t
 __basemodule = parentmodule(_encoded_t)
+__basemodule == _encoded_t && (__basemodule = Main)
 
 import ZCM
 

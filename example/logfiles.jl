@@ -2,7 +2,7 @@
 #TODO: This example does not work yet
 #TODO:
 
-push!(LOAD_PATH,dirname(Base.source_path()))
+push!(LOAD_PATH,dirname(Base.source_path())*"/generated_types")
 using ZCM
 
 using _example_t
