@@ -1,6 +1,8 @@
 # ZCM.jl
 Julia package for ZCM
 
+[![Build Status](https://travis-ci.org/AndreHat/ZCM.jl.svg?branch=master)](https://travis-ci.org/AndreHat/ZCM.jl)
+
 This is a module for ZCM in Julia 1.0. The original source code was found [here](https://github.com/ZeroCM/zcm/tree/master/zcm/julia) and then modified for Julia 1.0 from Julia 0.6.
 
 ## Install
