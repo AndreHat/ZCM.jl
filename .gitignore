@@ -1,0 +1,13 @@
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+*.o
+*.so
+*.a
+
+Manifest.toml
+docs/build
+dev
+deps/deps.jl
+deps/build.log
+deps/usr
