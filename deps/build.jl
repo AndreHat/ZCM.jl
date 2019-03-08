@@ -1,5 +1,18 @@
 using BinaryProvider # requires BinaryProvider 0.3.0 or later
 
+
+for (root, dirs, files) in walkdir(".")
+    println("Directories in $root")
+    for dir in dirs
+        println(joinpath(root, dir)) # path to directories
+    end
+    println("Files in $root")
+    for file in files
+        println(joinpath(root, file)) # path to files
+    end
+end
+
+
 # Parse some basic command-line arguments
 const verbose = "--verbose" in ARGS
 const prefix = Prefix(get([a for a in ARGS if a != "--verbose"], 1, joinpath(@__DIR__, "usr")))
