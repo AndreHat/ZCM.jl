@@ -48,8 +48,13 @@ if (!good(zlog))
 end
 
 i = 0
-event = read_next_event(zlog)
+global event = read_next_event(zlog)
 while (good(event))
+    global event
+    global i
+    global msg
+    global zlog
+
     msg = decode(example_t, event.data)
 
     @assert (event.utime   == Int64(i * 1e6)) "Bad event utime"

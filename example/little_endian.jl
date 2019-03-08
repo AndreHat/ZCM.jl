@@ -1,7 +1,3 @@
-#TODO:
-#TODO: This example still doesn't work, something wrong with the encoding/decoding steps. Wrong data arrives in the callback
-#TODO:
-
 push!(LOAD_PATH,dirname(Base.source_path())*"/generated_types")
 using ZCM
 
