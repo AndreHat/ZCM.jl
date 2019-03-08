@@ -14,11 +14,12 @@ notifications:
 git:
   depth: 99999999
 
-
 matrix:
  allow_failures:
  - julia: nightly
 
+script:
+ - julia --color=yes -e 'using Pkg; Pkg.build(); ZCM.check_deps(); Pkg.test(coverage=true)'
 
 after_success:
   - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
