@@ -5,8 +5,8 @@ const verbose = "--verbose" in ARGS
 const prefix = Prefix(get([a for a in ARGS if a != "--verbose"], 1, joinpath(@__DIR__, "usr")))
 products = [
     LibraryProduct(prefix, ["libzmq"], :libzmq),
-    LibraryProduct(Prefix(prefix.path*"/usr/local"), ["libzcmjulia"], :libzcmjulia),
     LibraryProduct(Prefix(prefix.path*"/usr/local"), ["libzcm"], :libzcm),
+    LibraryProduct(Prefix(prefix.path*"/usr/local"), ["libzcmjulia"], :libzcmjulia),
 ]
 
 # Download binaries from hosted location
