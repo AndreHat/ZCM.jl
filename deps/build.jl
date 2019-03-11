@@ -21,6 +21,11 @@ download_info = Dict(
     Linux(:x86_64, libc=:glibc) => ("$bin_prefix/ZCMBuilder.v0.1.0.x86_64-linux-gnu.tar.gz", "e087c6c4764f82c4caa51f43154d65fee632114b9ebaa5da04b1257f85614e70"),
 )
 
+#FIXME: hack to load libzmq first before checks
+if satisfied(products[1], verbose=verbose)
+    dlopen(prefix.path*"/lib/libzmq")
+end
+
 # Install unsatisfied or updated dependencies:
 unsatisfied = any(!satisfied(p; verbose=verbose) for p in products)
 dl_info = choose_download(download_info, platform_key_abi())
