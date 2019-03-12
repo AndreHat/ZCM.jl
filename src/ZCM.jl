@@ -6,6 +6,11 @@ if !isfile(depsjl_path)
 end
 include(depsjl_path)
 
+function __init__()
+    #check dependencies
+    check_deps()
+end
+
 # AbstractZcmType functions
 export encode,
        decode,
